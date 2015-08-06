@@ -1,0 +1,20 @@
+/************************************************************************/
+/* Author:  Kemi Peng 
+History: 08/03/2015 by Kemi Peng*/
+/************************************************************************/
+uniform sampler2D u_texture;
+void main(void)
+{
+	vec4 tex = texture2D(u_texture, gl_TexCoord[0]);
+	
+	// render emission tex to shininess texture and canvas texture, nothing special
+	gl_FragData[0] = tex;
+	gl_FragData[1] = tex;  
+	gl_FragData[2] = 0;
+	gl_FragData[3] = 0;
+	gl_FragData[4] = 0;
+	gl_FragData[5] = 0;
+	gl_FragData[6] = 0;
+	gl_FragData[7] = 0;
+	
+}

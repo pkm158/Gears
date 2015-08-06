@@ -1,0 +1,11 @@
+/************************************************************************/
+/* Author:  Kemi Peng 
+History: 08/03/2015 by Kemi Peng*/
+/************************************************************************/
+
+void main(void)
+{
+	gl_TexCoord[0] = gl_MultiTexCoord0;
+	mat4 identityMat = mat4(1.0);
+	gl_Position = identityMat * gl_Vertex;
+}

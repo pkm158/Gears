@@ -1,0 +1,24 @@
+Done:
+Support openGL
+Support opaque objects
+3 diffuse textures
+Specular mapping
+Normal mapping
+Emission mapping
+Lerp soft-shadow
+Deferred rendering(Directional light and point light)
+Full screen bloom
+Shininess bloom
+Depth of field
+
+To do list:
+Support D3DX
+Support transparent objects
+High Dynamic Range				(next release)
+Environment mapping				(next release)
+Deferred rendering(Spot light)  (next release)
+Reflection
+Refraction
+Interactive water
+GPU partical
+Volume frog

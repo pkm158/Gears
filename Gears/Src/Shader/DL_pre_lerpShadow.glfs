@@ -1,0 +1,140 @@
+/************************************************************************/
+/* Author:  Kemi Peng 
+History: 08/03/2015 by Kemi Peng*/
+/************************************************************************/
+
+varying vec4 v_lightPos;
+varying vec3 v_worldPos;
+varying vec3 v_worldNormal;
+
+uniform sampler2D u_diffuseSampler;
+uniform sampler2D u_shadowSampler;
+
+uniform bool u_isShadowed;
+uniform bool u_canBeLighted;
+
+uniform vec4 u_textureSize;
+
+uniform vec4 u_camPos;
+uniform vec4 u_light[4];
+
+uniform float u_diffScale;
+
+float LightCoverage_4samples(sampler2D sampler, vec4 projected_pos)
+{
+	float fLit[4];
+	vec2 texoffset[4];
+	int index = 0;
+	
+	for ( int y=0; y<=1; y++ )
+	{
+		for ( int x=0; x<=1; x++ )
+		{
+			texoffset[index] = vec2(x, y) * u_textureSize.zw;
+			index++;
+		}
+	}
+	
+	for ( int i=0; i<4; i++ )
+	{
+		vec4 shadowmap = texture2D(u_shadowSampler, projected_pos.xy + texoffset[i].xy);
+		fLit[i] = shadowmap.r < projected_pos.z ? 0.0 : 1.0;
+	}
+	
+	vec2 texel = projected_pos.xy * u_textureSize.xy;
+	vec2 texel_frac = texel - floor(texel);
+	
+	float fLitX0 = lerp(fLit[0], fLit[1], texel_frac.x);
+	float fLitX1 = lerp(fLit[2], fLit[3], texel_frac.x);
+	float fLitFinal = lerp(fLitX0, fLitX1, texel_frac.y);
+	
+	return fLitFinal;
+}
+
+float LightCoverage_16samples(sampler2D sampler, vec4 projected_pos)
+{
+	float fLit[16];
+	vec2 texoffset[16];
+	int index = 0;
+	
+	for ( int y=-1; y<=2; y++ )
+	{
+		for ( int x=-1; x<=2; x++ )
+		{
+			texoffset[index] = vec2(x, y) * u_textureSize.zw;
+			index++;
+		}
+	}
+	
+	for ( int i=0; i<16; i++ )
+	{
+		vec4 shadowmap = texture2D(u_shadowSampler, projected_pos.xy + texoffset[i].xy);
+		fLit[i] = shadowmap.r < projected_pos.z ? 0.0 : 1.0;
+	}
+
+	float fDividor = 1.0/9.0;
+	
+	float p0 = 
+		(fLit[0] + fLit[1] + fLit[ 2] +
+		 fLit[4] + fLit[5] + fLit[ 6] +
+		 fLit[8] + fLit[9] + fLit[10]) * fDividor;
+	
+	float p1 = 
+		(fLit[1] + fLit[ 2] + fLit[ 3] +
+		 fLit[5] + fLit[ 6] + fLit[ 7] +
+		 fLit[9] + fLit[10] + fLit[11]) * fDividor;
+
+	float p2 = 
+		(fLit[ 4] + fLit[ 5] + fLit[ 6] +
+		 fLit[ 8] + fLit[ 9] + fLit[10] +
+		 fLit[12] + fLit[13] + fLit[14]) * fDividor;
+
+	float p3 = 
+		(fLit[ 5] + fLit[ 6] + fLit[ 7] +
+		 fLit[ 9] + fLit[10] + fLit[11] +
+		 fLit[13] + fLit[14] + fLit[15]) * fDividor;
+
+	vec2 texel = projected_pos.xy * u_textureSize.xy;
+	vec2 texel_frac = frac(texel);
+	
+	float fLitX0 = lerp(p0, p1, texel_frac.x);
+	float fLitX1 = lerp(p2, p3, texel_frac.x);
+	float fLitFinal = lerp(fLitX0, fLitX1, texel_frac.y);
+	
+	return fLitFinal;
+}
+
+void main(void)
+{
+	vec4 vDiffuse = texture2D(u_diffuseSampler, gl_TexCoord[0].xy) * u_diffScale;
+
+	vec4  projected_pos = v_lightPos / v_lightPos.w;
+	float fLightCoverage = max(LightCoverage_16samples(u_shadowSampler, projected_pos), 1 - u_isShadowed);
+	
+	vec3 L = normalize(-u_light[3]);   
+	vec3 E = normalize(u_camPos - v_worldPos);
+	vec3 vNormal = normalize(v_worldNormal);
+	vec3 R = normalize(-reflect(L,vNormal));  
+
+	// Ambient:  
+	vec4 ambColor = gl_FrontMaterial.ambient * u_light[0] * u_canBeLighted;    
+
+	// Diffuse:  
+	vec4 diffCanBeLigted = 1-(u_light[1] * saturate(dot(vNormal,L))-1) * (0 - u_canBeLighted);
+	vec4 diffColor = gl_FrontMaterial.diffuse *  fLightCoverage * diffCanBeLigted;
+
+	//  Specular
+	vec4 specColor = gl_FrontMaterial.specular * u_light[2] * pow(saturate(dot(R,E)),gl_FrontMaterial.shininess) * fLightCoverage * u_canBeLighted;
+	
+	// write Total Color:  
+	
+	gl_FragData[0] = specColor + gl_FrontMaterial.emission;
+	gl_FragData[1] = vec4(((ambColor + diffColor)*vDiffuse + specColor + gl_FrontMaterial.emission).rgb, vDiffuse.a);  
+	gl_FragData[2] = vec4(v_worldPos, 1.0);
+	gl_FragData[3] = vec4(vNormal, 1.0) * u_canBeLighted;
+	gl_FragData[4] = gl_FrontMaterial.diffuse * vDiffuse * u_canBeLighted;
+	gl_FragData[5] = gl_FrontMaterial.specular * u_canBeLighted;
+	gl_FragData[6] = vec4(gl_FrontMaterial.shininess) * u_canBeLighted;
+	gl_FragData[7] = ambColor + diffColor;
+	
+}

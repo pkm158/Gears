@@ -1,0 +1,26 @@
+/************************************************************************/
+/* Author:  Kemi Peng 
+History: 08/03/2015 by Kemi Peng*/
+/************************************************************************/
+
+uniform sampler2D u_texture;
+uniform sampler2D u_ambDiffSample;
+uniform float	  u_diffScale;
+
+void main(void)
+{
+	vec4 vDiffuse = texture2D(u_texture, gl_TexCoord[0]) * u_diffScale;
+	
+	vec2 ambDiffTexCoord = (gl_TexCoord[1].xy / gl_TexCoord[1].w) * vec2(0.5, 0.5) + vec2(0.5, 0.5);
+	vec4 ambDiff = texture2D(u_ambDiffSample, ambDiffTexCoord);
+	
+	gl_FragData[0] = 0;
+	gl_FragData[1] = vec4(((ambDiff)*vDiffuse).rgb, vDiffuse.a);
+	gl_FragData[2] = 0;
+	gl_FragData[3] = 0;
+	gl_FragData[4] = gl_FrontMaterial.diffuse * vDiffuse;
+	gl_FragData[5] = 0;
+	gl_FragData[6] = 0;
+	gl_FragData[7] = 0;
+	
+}

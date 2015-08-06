@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gears", "Gears\Gears.vcproj", "{6E94D1F5-CFC2-4724-8F5E-77DFED088EB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_D3D10|Win32 = Debug_D3D10|Win32
+		Debug_Opengl|Win32 = Debug_Opengl|Win32
+		Debug|Win32 = Debug|Win32
+		Release_D3D10|Win32 = Release_D3D10|Win32
+		Release_Opengl|Win32 = Release_Opengl|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E94D1F5-CFC2-4724-8F5E-77DFED088EB3}.Debug_D3D10|Win32.ActiveCfg = Debug_Opengl|Win32
+		{6E94D1F5-CFC2-4724-8F5E-77DFED088EB3}.Debug_D3D10|Win32.Build.0 = Debug_Opengl|Win32
+		{6E94D1F5-CFC2-4724-8F5E-77DFED088EB3}.Debug_Opengl|Win32.ActiveCfg = Debug_Opengl|Win32
+		{6E94D1F5-CFC2-4724-8F5E-77DFED088EB3}.Debug_Opengl|Win32.Build.0 = Debug_Opengl|Win32
+		{6E94D1F5-CFC2-4724-8F5E-77DFED088EB3}.Debug|Win32.ActiveCfg = Debug_D3D10|Win32
+		{6E94D1F5-CFC2-4724-8F5E-77DFED088EB3}.Debug|Win32.Build.0 = Debug_D3D10|Win32
+		{6E94D1F5-CFC2-4724-8F5E-77DFED088EB3}.Release_D3D10|Win32.ActiveCfg = Debug_Opengl|Win32
+		{6E94D1F5-CFC2-4724-8F5E-77DFED088EB3}.Release_D3D10|Win32.Build.0 = Debug_Opengl|Win32
+		{6E94D1F5-CFC2-4724-8F5E-77DFED088EB3}.Release_Opengl|Win32.ActiveCfg = Debug_Opengl|Win32
+		{6E94D1F5-CFC2-4724-8F5E-77DFED088EB3}.Release_Opengl|Win32.Build.0 = Debug_Opengl|Win32
+		{6E94D1F5-CFC2-4724-8F5E-77DFED088EB3}.Release|Win32.ActiveCfg = Release_Opengl|Win32
+		{6E94D1F5-CFC2-4724-8F5E-77DFED088EB3}.Release|Win32.Build.0 = Release_Opengl|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

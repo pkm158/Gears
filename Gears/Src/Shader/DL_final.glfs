@@ -1,0 +1,42 @@
+/************************************************************************/
+/* Author:  Kemi Peng 
+History: 08/03/2015 by Kemi Peng*/
+/************************************************************************/
+
+uniform sampler2D u_posSampler;
+uniform sampler2D u_normalmapSampler;
+uniform sampler2D u_diffuseSampler;
+uniform sampler2D u_specularSampler;
+uniform sampler2D u_emissionSampler;
+uniform sampler2D u_shininessSampler;
+
+uniform vec4 u_cameraPos;
+uniform vec4 u_lightPos;
+uniform vec4 u_diffuseColor;
+uniform vec4 u_specColor;
+
+void main(void)
+{
+	
+	vec2 texcoord = (gl_TexCoord[0].xy / gl_TexCoord[0].w) * vec2(0.5, 0.5) + vec2(0.5, 0.5);
+	
+	vec4 worldPos = texture2D(u_posSampler, texcoord);
+	vec4 worldNormal = texture2D(u_normalmapSampler, texcoord);
+	vec4 diffuse = texture2D(u_diffuseSampler, texcoord);
+	vec4 specular = texture2D(u_specularSampler, texcoord);
+	vec4 emission = texture2D(u_emissionSampler, texcoord);
+	vec4 shininess = texture2D(u_shininessSampler, texcoord);
+
+	vec3 lightDir = normalize(u_lightPos.xyz - worldPos.xyz);
+	vec3 cameraDir = normalize(u_cameraPos.xyz - worldPos.xyz);
+	vec3 halfVector = normalize(cameraDir + lightDir);
+	
+	float distance = distance(u_lightPos.xyz, worldPos.xyz);
+	float attenuation = 1.0 - distance / u_lightPos.w;
+	
+	vec4 iDiffuse = u_diffuseColor * saturate(dot(lightDir, worldNormal)) * diffuse;
+	vec4 iSpecular = u_specColor * specular * pow(saturate(dot(halfVector, worldNormal)), shininess);
+	vec4 lighting = (iDiffuse + iSpecular) * attenuation ;
+	
+	gl_FragColor = lighting;
+}

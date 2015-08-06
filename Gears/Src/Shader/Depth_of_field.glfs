@@ -1,0 +1,27 @@
+/************************************************************************/
+/* Author:  Kemi Peng 
+History: 08/03/2015 by Kemi Peng*/
+/************************************************************************/
+
+uniform vec4 u_depthOfField;
+uniform vec4 u_zInv;
+
+uniform sampler2D u_zBuffer;
+uniform sampler2D u_image;
+uniform sampler2D u_blurredImage;
+
+void main(void)
+{
+	vec4 zbuffer = texture2D(u_zBuffer, gl_TexCoord[0].xy);
+	vec4 framebuffer = texture2D(u_image, gl_TexCoord[0].xy);
+	vec4 blur = texture2D(u_blurredImage, gl_TexCoord[0].xy);
+	
+	vec4 z = vec4(0.0, 0.0, (zbuffer.r-0.5)*2.0, 1.0);
+	float fLinearZ = abs(1.0/dot(z, u_zInv));
+
+	float fNearBlur = clamp((u_depthOfField.x-fLinearZ)/u_depthOfField.y, 0.0, 1.0);
+	float fFarBlur = clamp((fLinearZ - u_depthOfField.z)/u_depthOfField.w, 0.0, 1.0);
+	float fBlur = max(fNearBlur, fFarBlur);
+	
+	gl_FragColor = mix(framebuffer, blur, fBlur);
+}
