@@ -287,6 +287,11 @@ bool IsFullScreen( void )
 	return gUtilityManager->pConfigUtility->isFullScreen();
 }
 
+void turnFullScreenBloom( bool state )
+{
+	gUtilityManager->pConfigUtility->turnFullScreenBloom(state);
+}
+
 int GetShadowMapSize( void )
 {
 	return gUtilityManager->pConfigUtility->getShadowMapSize();
@@ -300,6 +305,11 @@ bool IsFullscreenBloom( void )
 bool IsShinessBloom( void )
 {
 	return gUtilityManager->pConfigUtility->isShinessBloom();
+}
+
+void turnShinessBloom( bool state )
+{
+	gUtilityManager->pConfigUtility->turnShinessBloom(state);
 }
 
 float GetFullScreenBloomFactor( void )
@@ -325,6 +335,12 @@ int GetBlurIntenseLevel2( void )
 bool IsDepthOfField( void )
 {
 	return gUtilityManager->pConfigUtility->isDepthOfField();
+}
+
+
+void turnDepthOfField( bool state )
+{
+	gUtilityManager->pConfigUtility->turnDepthOfField(state);
 }
 
 const CVector& GetDepthOfFieldFactors( void )

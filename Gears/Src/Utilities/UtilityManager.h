@@ -114,12 +114,15 @@ bool		IsFullScreen( void );
 int			GetShadowMapSize( void );
 
 bool		IsFullscreenBloom(void);
+void		turnFullScreenBloom(bool state);
 bool		IsShinessBloom(void);
+void		turnShinessBloom( bool state );
 float		GetFullScreenBloomFactor(void);
 float		GetShinessBloomFactor(void);
 int			GetBlurIntenseLevel1(void);
 int			GetBlurIntenseLevel2(void);
 bool		IsDepthOfField(void);
+void		turnDepthOfField(bool state);
 const CVector& GetDepthOfFieldFactors(void);
 
 /************************************************************************/

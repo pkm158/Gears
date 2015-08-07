@@ -22,7 +22,9 @@ public:
 private:
 	LightsManager	m_lightManager;
 
-	Light	  *m_lightArr;
+	Light			*m_lightArr;
+
+	int				m_entityNum;
 
 #ifdef OPENGL_CORE
 	RenderEntity_opengl *m_pEntity;

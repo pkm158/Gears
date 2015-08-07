@@ -207,7 +207,8 @@ void sModelMesh::Load_ASCII(FILE *pFile)
 				Vector4 &binormal = pVertex->m_BiNormal;
 
 				fgets(szBuffer, BufferSize, pFile);
-				char *pLoc = szBuffer;
+				char *pLoc;
+				pLoc = szBuffer;
 
 				if ( bVertex )
 				{

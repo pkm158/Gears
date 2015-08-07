@@ -32,12 +32,15 @@ public:
 	inline int getShadowMapSize( void ) const { return m_shadowMapSize; };
 
 	inline bool isFullscreenBloom(void) const {return m_isFullScreenBloom;};
+	inline void turnFullScreenBloom(bool state) {m_isFullScreenBloom = state;};
 	inline bool isShinessBloom(void) const {return m_isShinessBloom;};
+	inline void turnShinessBloom(bool state) {m_isShinessBloom = state;};
 	inline float getFullScreenBloomFactor(void) const {return m_fullscreenBloomFactor;};
 	inline float getShinessBloomFactor(void) const {return m_shinessBloomFactor;};
 	inline int	 getBlurIntenseLevel1(void) const {return m_blurIntense_levell;};
 	inline int   getBlurIntenseLevel2(void) const {return m_blurIntense_level2;};
 	inline bool	 isDepthOfField(void) const {return m_isDepthOfField;};
+	inline void	 turnDepthOfField(bool state) {m_isDepthOfField = state;};
 	inline const CVector& getDepthOfFieldFactors(void) const {return m_depthOfFieldFactors;};
 	
 private:

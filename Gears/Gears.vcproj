@@ -392,6 +392,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\Resources\sword\axe.gma"
+				>
+			</File>
+			<File
 				RelativePath=".\Resources\cobble\cobble.gma"
 				>
 			</File>
@@ -400,7 +404,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Resources\earth\earth_normalmapped.gma"
+				RelativePath=".\Resources\earth\earth.gma"
 				>
 			</File>
 			<File
@@ -409,6 +413,10 @@
 			</File>
 			<File
 				RelativePath=".\Resources\sun\sun.gma"
+				>
+			</File>
+			<File
+				RelativePath=".\Resources\sword\sword.GMA"
 				>
 			</File>
 		</Filter>

@@ -110,6 +110,9 @@ void main(void)
 
 	vec4  projected_pos = v_lightPos / v_lightPos.w;
 	float fLightCoverage = max(LightCoverage_16samples(u_shadowSampler, projected_pos), 1 - u_isShadowed);
+	//float fLightCoverage = max(LightCoverage_4samples(u_shadowSampler, projected_pos), 1 - u_isShadowed);
+	//vec4 shadowmap = texture2D(u_shadowSampler, projected_pos.xy);
+	//float fLightCoverage = shadowmap.r < projected_pos.z ? 0.0 : 1.0;
 	
 	vec3 L = normalize(-u_light[3]);   
 	vec3 E = normalize(u_camPos - v_worldPos);

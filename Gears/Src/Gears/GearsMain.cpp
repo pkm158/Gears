@@ -90,6 +90,7 @@ void GearsMain::run( void )
 		{
 			dt = GetTime();
 		} while ( dt<(1.0f/fps) );	//lock fps
+		DEBUG_PRINT("%f", 1.0/dt);
 		TimerReset();
 		TimerStart();
 

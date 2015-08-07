@@ -6,6 +6,8 @@ Math library and GMA model loading library are found online, modified by Kemi Pe
 
 Version -- 0.5.0 08/05/2015
 
+Only need to modify StageUtility class to create your own scence or game.
+
 Features:
 Support opaque objects
 3 diffuse textures

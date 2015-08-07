@@ -170,7 +170,6 @@ struct sVertexDecl
 		int Tex0Elems=0, int Tex1Elems=0, int Tex2Elems=0, int Tex3Elems=0);
 };
 
-
 typedef std::list<Light *> LightList;
 
 #endif
