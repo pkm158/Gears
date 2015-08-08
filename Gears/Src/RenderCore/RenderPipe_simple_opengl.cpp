@@ -66,7 +66,7 @@ void RenderPipe_simple_opengl::render( GLuint target )
 {
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, target);
 	
-	if (m_isDepthBufferAltered)
+	if (m_isDepthBufferAltered)		// it's extremely time consuming. do not call this function until change.
 	{
 		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_TEXTURE_2D, m_depthBuffer, 0);
 		m_isDepthBufferAltered = false;

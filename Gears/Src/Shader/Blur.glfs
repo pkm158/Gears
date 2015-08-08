@@ -3,15 +3,15 @@
 History: 08/03/2015 by Kemi Peng*/
 /************************************************************************/
 
-#define SAMPLENUM 9
+#define KERNELSIZE 9
 uniform sampler2D	u_imageSampler;
-uniform vec4		u_texOffset[SAMPLENUM];
+uniform vec4		u_texOffset[KERNELSIZE];
 
 void main(void)
 {
 	vec4 color = vec4(0,0,0,0);
 	
-	for ( int i=0; i<SAMPLENUM; i++ )
+	for ( int i=0; i<KERNELSIZE; i++ )
 	{
 		// color is calculated by other 8 pixals.
 		color += texture2D(u_imageSampler, gl_TexCoord[0].xy + u_texOffset[i].xy) * u_texOffset[i].w; // u_texOffset[i].w is weight

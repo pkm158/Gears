@@ -8,7 +8,7 @@ History: 08/03/2015 by Kemi Peng*/
 
 RenderPipe_blur_opengl::RenderPipe_blur_opengl(void)
 {
-	const int num_samples = NUM_SAMPLE;
+	const int num_samples = KERNELSIZE;
 	m_blurLevel = BLUR_INTENSE_L1;
 
 	// calculate the other 8 pixals around it, and their weight, change those attributes can change the effect of blur
@@ -52,13 +52,13 @@ bool RenderPipe_blur_opengl::init( Device_opengl *device )
 	int blur_intense_l2 = GetBlurIntenseLevel2();
 
 
-	// for slightly blur
+	// for slightly blur, bigger size for the blurred picture.
 	if(!Device_opengl::CreateRenderTargetOpenGL(
 		m_bufferWidth/blur_intense_l1, m_bufferHeight/blur_intense_l1, GL_RGBA8, &m_interBufferID[0], &m_interTextureID[0]) )
 	{
 		return false;
 	}
-	// for heaviely blur
+	// for heaviely blur, smaller size for the blurred picture.
 	if(!Device_opengl::CreateRenderTargetOpenGL(
 		m_bufferWidth/blur_intense_l2, m_bufferHeight/blur_intense_l2, GL_RGBA8, &m_interBufferID[1], &m_interTextureID[1]) )
 	{
@@ -119,8 +119,7 @@ void RenderPipe_blur_opengl::render( void )
 void RenderPipe_blur_opengl::render( GLuint target )
 {
 	glDepthMask(GL_FALSE);
-//	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, target);
-
+	// only render a texture to target, no view_projection_matrix needed
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
@@ -146,18 +145,20 @@ void RenderPipe_blur_opengl::render( GLuint target )
 			HR(false);
 		} break;
 	}
-
+	// m_bufferWidth and m_bufferHeight is the width and height of the main viewport.
+	// bufferWidth and bufferHeight is the width and height of this blurred buffer.
 	int bufferWidth = m_bufferWidth / sizeScale;
 	int bufferHeight= m_bufferHeight / sizeScale;
 
 	float fTexelW = 1.0f/(float)bufferWidth;
 	float fTexelH = 1.0f/(float)bufferHeight;
 
-	const int num_samples = NUM_SAMPLE;
+	const int num_samples = KERNELSIZE;
 
 	CVector texOffsetX[num_samples];
 	CVector texOffsetY[num_samples];
 
+	//tweak  m_uvOffset and m_weight can change the blur effect.
 	for ( int i=0; i<num_samples; i++ )
 	{
 		texOffsetX[i].Set(m_uvOffset[i] * fTexelW, 0.0f, 0.0f, m_weight[i]);
@@ -172,6 +173,7 @@ void RenderPipe_blur_opengl::render( GLuint target )
 	GLuint interTextureID = m_interTextureID[m_blurLevel];
 
 	glPushAttrib(GL_VIEWPORT_BIT);
+	// horizontal blur first, then vertical blur. Of course it can be finished in one step, but that require reading 81 pixels, and the efficiency is no better.
 	glViewport(0, 0, bufferWidth, bufferHeight);
 	// `horizontal blur
 	{

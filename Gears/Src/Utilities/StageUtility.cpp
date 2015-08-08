@@ -259,12 +259,12 @@ void StageUtility::update( double tt, double dt )
 
 	if (IsKeyPressed(DIK_1))
 	{
-		turnFullScreenBloom(false);
+		turnShinessBloom(false);
 	}
 
 	if (IsKeyPressed(DIK_2))
 	{
-		turnFullScreenBloom(true);
+		turnShinessBloom(true);
 	}
 
 	b = CVector(0,0,1);

@@ -12,8 +12,8 @@ void main(void)
 {
 	vec4 color = texture2D(u_imageSampler, gl_TexCoord[0].xy);
 	
-	vec4 table = vec4(0.333f, 0.333f, 0.333f, 0.0f);	// the portion for three-primary colours, the sum should be 1.
-	float intensity = dot(color.rgb, table);			//get the old intensity
+	vec4 table = vec4(0.2126f, 0.7152f, 0.0722f, 0.0f);	// convert rgb to greyscale.
+	vec4 intensity = dot(color.rgb, table);			//get the old intensity
 
 	vec4 newIntensity = (intensity + u_intensityOffset) * u_intensityScale; // new intensity
 

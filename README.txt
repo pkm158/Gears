@@ -2,6 +2,8 @@ Gears Render Engine
 Free to use for any purpose, open source, and great for learning shader.
 By Kemi Peng <pengsoftware@gmail.com>
 
+For detailed tutorial, please check my blog, http://pengkemi.blog.com/
+
 Math library and GMA model loading library are found online, modified by Kemi Peng, original author unknown. GMA model loading library will be rewritten soon.
 
 Version -- 0.5.0 08/05/2015

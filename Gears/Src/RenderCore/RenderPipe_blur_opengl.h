@@ -7,7 +7,7 @@ History: 08/03/2015 by Kemi Peng*/
 
 #include "IRenderpipe.h"
 
-#define NUM_SAMPLE 9
+#define KERNELSIZE 9
 
 class RenderPipe_blur_opengl :
 	public IRenderPipe
@@ -44,8 +44,8 @@ private:
 	int m_bufferWidth;
 	int m_bufferHeight;
 
-	float m_weight[NUM_SAMPLE];
-	float m_uvOffset[NUM_SAMPLE];
+	float m_weight[KERNELSIZE];
+	float m_uvOffset[KERNELSIZE];
 };
 
 

@@ -6,7 +6,7 @@ History: 08/03/2015 by Kemi Peng*/
 #include "UtilityManager.h"
 
 RenderPipe_brightness_opengl::RenderPipe_brightness_opengl(void):
-															m_brightnessOffset(CVector(0.0f, 0.0f, 0.0f, 0.0f)),
+															m_brightnessOffset(CVector(-0.0f, 0.0f, 0.0f, 0.0f)),
 															m_brightnessScale(CVector(3.0f, 3.0f, 3.0f, 3.0f))
 {
 }
