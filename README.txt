@@ -4,6 +4,15 @@ By Kemi Peng <pengsoftware@gmail.com>
 
 For detailed tutorial, please check my blog, http://pengkemi.blog.com/
 
+Now, the demo is only focus on visual effect.
+Use 1,2,3 to switch between different stage. 2 is for test of depth of field, 3 is for test of deferred rendering.
+Use 4 and 5 to turn full screen bloom effect on or off.
+Use 6 and 7 to turn shininess bloom effect on or off.
+Use 8 and 9 to turn depth of field effect on or off.
+Use Q and E to move camera.
+Use W, A, S, D to move objects.
+Use I, J, K, L to tilt objects.
+
 Math library and GMA model loading library are found online, modified by Kemi Peng, original author unknown. GMA model loading library will be rewritten soon.
 
 Version -- 0.5.0 08/05/2015
@@ -16,7 +25,7 @@ Support opaque objects
 Specular mapping
 Normal mapping
 Emission mapping
-Lerp soft-shadow
+Percentage Close Filter Lerp soft-shadow
 Deferred rendering
 Full screen bloom
 Shininess bloom

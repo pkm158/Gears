@@ -85,7 +85,7 @@ static inline void Log(const char *format, ...)
 // also write to log
 static inline void DEBUG_PRINT( const char* format, ... )
 {
-	static char buffer[1024];
+	static char buffer[2048];
 	va_list	ap;
 	va_start(ap, format);
 	vsprintf_s(buffer, format, ap);

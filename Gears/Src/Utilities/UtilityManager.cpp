@@ -287,7 +287,7 @@ bool IsFullScreen( void )
 	return gUtilityManager->pConfigUtility->isFullScreen();
 }
 
-void turnFullScreenBloom( bool state )
+void TurnFullScreenBloom( bool state )
 {
 	gUtilityManager->pConfigUtility->turnFullScreenBloom(state);
 }
@@ -307,7 +307,7 @@ bool IsShinessBloom( void )
 	return gUtilityManager->pConfigUtility->isShinessBloom();
 }
 
-void turnShinessBloom( bool state )
+void TurnShinessBloom( bool state )
 {
 	gUtilityManager->pConfigUtility->turnShinessBloom(state);
 }
@@ -338,7 +338,7 @@ bool IsDepthOfField( void )
 }
 
 
-void turnDepthOfField( bool state )
+void TurnDepthOfField( bool state )
 {
 	gUtilityManager->pConfigUtility->turnDepthOfField(state);
 }

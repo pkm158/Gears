@@ -16,7 +16,7 @@ void main(void)
 	vec4 framebuffer = texture2D(u_image, gl_TexCoord[0].xy);
 	vec4 blur = texture2D(u_blurredImage, gl_TexCoord[0].xy);
 	
-	vec4 z = vec4(0.0, 0.0, (zbuffer.r-0.5)*2.0, 1.0);
+	vec4 z = vec4(0.0, 0.0, (zbuffer.r-0.5)*2.0, 1.0);	// if D3D, vec4 z = vec4(0.0, 0.0, zbuffer.r, 1.0);
 	float fLinearZ = abs(1.0/dot(z, u_zInv));
 
 	float fNearBlur = clamp((u_depthOfField.x-fLinearZ)/u_depthOfField.y, 0.0, 1.0);

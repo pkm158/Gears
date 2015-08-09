@@ -24,55 +24,17 @@ uniform vec4 u_light[4];
 
 uniform float u_diffScale;
 
-float LightCoverage_4samples(sampler2D sampler, vec4 projected_pos)
-{
-	float fLit[4];
-	vec2 texoffset[4];
-	int index = 0;
-	
-	for ( int y=0; y<=1; y++ )
-	{
-		for ( int x=0; x<=1; x++ )
-		{
-			texoffset[index] = vec2(x, y) * u_textureSize.zw;
-			index++;
-		}
-	}
-	
-	for ( int i=0; i<4; i++ )
-	{
-		vec4 shadowmap = texture2D(u_shadowSampler, projected_pos.xy + texoffset[i].xy);
-		fLit[i] = shadowmap.r < projected_pos.z ? 0.0 : 1.0;
-	}
-	
-	vec2 texel = projected_pos.xy * u_textureSize.xy;
-	vec2 texel_frac = texel - floor(texel);
-	
-	float fLitX0 = lerp(fLit[0], fLit[1], texel_frac.x);
-	float fLitX1 = lerp(fLit[2], fLit[3], texel_frac.x);
-	float fLitFinal = lerp(fLitX0, fLitX1, texel_frac.y);
-	
-	return fLitFinal;
-}
+#define SAMPLENUM 16
+
+uniform vec4 u_texoffset[SAMPLENUM];
 
 float LightCoverage_16samples(sampler2D sampler, vec4 projected_pos)
 {
 	float fLit[16];
-	vec2 texoffset[16];
-	int index = 0;
-	
-	for ( int y=-1; y<=2; y++ )
-	{
-		for ( int x=-1; x<=2; x++ )
-		{
-			texoffset[index] = vec2(x, y) * u_textureSize.zw;
-			index++;
-		}
-	}
 	
 	for ( int i=0; i<16; i++ )
 	{
-		vec4 shadowmap = texture2D(u_shadowSampler, projected_pos.xy + texoffset[i].xy);
+		vec4 shadowmap = texture2D(sampler, projected_pos.xy + u_texoffset[i].xy);
 		fLit[i] = shadowmap.r < projected_pos.z ? 0.0 : 1.0;
 	}
 
@@ -123,6 +85,17 @@ void main(void)
 	vec4 vDiffuse = texture2D(u_diffuseSampler, gl_TexCoord[0].xy) * u_diffScale;
 
 	vec4  projected_pos = v_lightPos / v_lightPos.w;
+	
+// 	float fLightCoverage;
+// 	
+// 	for ( int i=0; i<SAMPLENUM; i++ )
+// 	{
+// 		vec4 shadowmap = texture2D(u_shadowSampler, projected_pos.xy + u_texoffset[i].xy);
+// 		fLightCoverage += shadowmap.r > projected_pos.z;
+// 	}
+// 		
+// 	fLightCoverage = fLightCoverage / (float)SAMPLENUM;
+	
 	float fLightCoverage = max(LightCoverage_16samples(u_shadowSampler, projected_pos), 1 - u_isShadowed);
 	//float fLightCoverage = max(LightCoverage_4samples(u_shadowSampler, projected_pos), 1 - u_isShadowed);
 	//vec4 shadowmap = texture2D(u_shadowSampler, projected_pos.xy);

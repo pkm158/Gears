@@ -6,7 +6,7 @@ History: 08/03/2015 by Kemi Peng*/
 #define RENDERPIPE_POS_OPENGL
 
 #define DEFAULT_FZBIAS 0.05f
-#define PCF_SAMPLES 49
+#define PCF_SAMPLES 16
 
 #include "IRenderpipe.h"
 #include "RenderEntityManager.h"
@@ -16,7 +16,7 @@ class RenderPipe_DLPre_opengl :
 {
 public:
 	RenderPipe_DLPre_opengl(void);
-	~RenderPipe_DLPre_opengl(void);
+	virtual ~RenderPipe_DLPre_opengl(void);
 
 	bool init(Device_opengl *device);
 	void release(void);
@@ -47,6 +47,10 @@ private:
 	CMatrix m_light_vmat;
 	CMatrix m_light_pmat;
 	CVector m_vTextureSize;
+
+	
+	CVector m_PCFOffset[PCF_SAMPLES];
+	int m_preShadowMapSize;
 
 	void renderByProgram(int type, const RenderEntityList& listToRender);
 

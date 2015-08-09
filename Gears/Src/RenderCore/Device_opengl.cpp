@@ -130,7 +130,8 @@ bool  Device_opengl::CreateRenderTargetOpenGL(int w, int h, GLuint color_fmt, GL
 	return true;
 }
 
-// with depth buffer
+// with depth buffer, w is buffer's width, and h is buffer's height. 
+// num_mrts is the number of textures which are going to be bind with this framebuffer
 bool  Device_opengl::CreateRenderTargetOpenGL(int w, int h, GLuint *pFrameBuffer,
 								 GLuint color_fmt, GLuint *pFrameTexture, int num_mrts,
 								 GLuint depth_fmt, GLuint *pDepthTexture)

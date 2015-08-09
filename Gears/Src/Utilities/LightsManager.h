@@ -20,6 +20,7 @@ public:
 	void clearLights(void);
 
 	void setDirLight(const Light &dirLight);
+	void setDirLightDirection(float x, float y, float z) {m_dirLight.direction.x = x; m_dirLight.direction.y = y; m_dirLight.direction.z = z;};
 	inline const Light& getDirLight(void) const {return m_dirLight;};
 
 	inline const LightList & getLights(void) const {return m_lights;};

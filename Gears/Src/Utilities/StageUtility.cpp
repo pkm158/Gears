@@ -1,12 +1,12 @@
 #include "StageUtility.h"
 #include "UtilityManager.h"
 
-StageUtility::StageUtility( void )
+StageUtility::StageUtility( void ) : m_stageType(STAGE_MAIN)
 {
 	DEBUG_PRINT("Create stage utility...");
 	IUtility::m_UtilityType = UTILITY_STAGE;
 
-	m_entityNum = 4;
+	m_entityNum = 10;
 	m_pEntity = new RenderEntity_opengl [m_entityNum];
 
 }
@@ -26,66 +26,62 @@ void StageUtility::postInitiate( void )
 {
 	DEBUG_PRINT("Initiate stage utility...");
  
- 	HR( m_pEntity[0].init(".//Resources//sun//sun.GMA", false, false, true, false) );
- 
- 	m_pEntity[0].move(-12, 6, 3);
- 	m_pEntity[0].scale(1.1);
- 	m_pEntity[0].rotateX(-RIGHT_ANGLE);
- 	SubmitRenderEntity(&m_pEntity[0]);
- 
- 	HR( m_pEntity[1].init(".//Resources//earth//earth.GMA", true, true, false, true, "Spec.dds", "nasa_earth_normalmap_2k.dds","Night_Lights2.dds", 2) );
- 
- 	m_pEntity[1].move(0,0, 0);
- 	m_pEntity[1].scale(5);
- 	m_pEntity[1].rotateX(-RIGHT_ANGLE);
- 	SubmitRenderEntity(&m_pEntity[1]);
- 
- 	HR( m_pEntity[3].init(".//Resources//cobble//cobble.GMA", false, true, false, true) );
- 
- 	m_pEntity[3].move(0, -4, 0);
- 	m_pEntity[3].scale(3);
- 	m_pEntity[3].rotateX(RIGHT_ANGLE);
- 	SubmitRenderEntity(&m_pEntity[3]);
- 
- 	HR( m_pEntity[2].init(".//Resources//moon//moon.GMA", false, false, false, true, NULL, "moon_normal.dds") );
- 
- 	m_pEntity[2].move(7, 1.5, 12);
- 	m_pEntity[2].scale(1.2);
- 	m_pEntity[2].rotateX(-RIGHT_ANGLE);
- 	SubmitRenderEntity(&m_pEntity[2]);
+  	HR( m_pEntity[0].init(".//Resources//sun//sun.GMA", false, false, true, false) );
+  
+  	m_pEntity[0].move(-12, 6, 3);
+  	m_pEntity[0].scale(1.1);
+  	m_pEntity[0].rotateX(-RIGHT_ANGLE);
+  	SubmitRenderEntity(&m_pEntity[0]);
+  
+  	HR( m_pEntity[1].init(".//Resources//earth//earth.GMA", true, true, false, true, "Spec.dds", "nasa_earth_normalmap_2k.dds","Night_Lights2.dds", 2) );
+  
+  	m_pEntity[1].move(0,0, 0);
+  	m_pEntity[1].scale(5);
+  	m_pEntity[1].rotateX(-RIGHT_ANGLE);
+  	SubmitRenderEntity(&m_pEntity[1]);
+  
+  	HR( m_pEntity[3].init(".//Resources//cobble//cobble.GMA", false, true, false, true) );
+  
+  	m_pEntity[3].move(0, -4, 0);
+  	m_pEntity[3].scale(3);
+  	m_pEntity[3].rotateX(RIGHT_ANGLE);
+  	SubmitRenderEntity(&m_pEntity[3]);
+  
+  	HR( m_pEntity[2].init(".//Resources//moon//moon.GMA", false, false, false, true, NULL, "moon_normal.dds") );
+  
+  	m_pEntity[2].move(7, 1.5, 12);
+  	m_pEntity[2].scale(1.2);
+  	m_pEntity[2].rotateX(-RIGHT_ANGLE);
+  	SubmitRenderEntity(&m_pEntity[2]);
 
 	/************************************************************************/
 	/* depth of field                                                       */
 	/************************************************************************/
-	/*HR( m_pEntity[0].init(".//Resources//statue//statue.GMA", false, true, false, true) );
-
-	m_pEntity[0].move(0, 0,-12);
-
-	m_pEntity[0].rotateX(-RIGHT_ANGLE);
-	SubmitRenderEntity(&m_pEntity[0]);
-
-	HR( m_pEntity[1].init(".//Resources//statue//statue.GMA", false, true, false, true) );
-
-	m_pEntity[1].move(0, 0, 0);
-	m_pEntity[1].rotateX(-RIGHT_ANGLE);
-	SubmitRenderEntity(&m_pEntity[1]);
-
-	HR( m_pEntity[2].init(".//Resources//statue//statue.GMA", false, true, false, true) );
-	m_pEntity[2].move(0, 0, 12);
-	m_pEntity[2].rotateX(-RIGHT_ANGLE);
-	SubmitRenderEntity(&m_pEntity[2]);
-
-	HR( m_pEntity[3].init(".//Resources//statue//statue.GMA", false, true, false, true) );
-
-	m_pEntity[3].move(0, 0, 24);
-	m_pEntity[3].rotateX(-RIGHT_ANGLE);
-	SubmitRenderEntity(&m_pEntity[3]);
-
 	HR( m_pEntity[4].init(".//Resources//statue//statue.GMA", false, true, false, true) );
-
-	m_pEntity[4].move(0, 0, 36);
+	m_pEntity[4].move(0, -4,-12);
 	m_pEntity[4].rotateX(-RIGHT_ANGLE);
-	SubmitRenderEntity(&m_pEntity[4]);*/
+	m_pEntity[4].rotateY(2*RIGHT_ANGLE);
+
+	HR( m_pEntity[5].init(".//Resources//statue//statue.GMA", false, true, false, true) );
+	m_pEntity[5].move(0, -4, 0);
+	m_pEntity[5].rotateX(-RIGHT_ANGLE);
+	m_pEntity[5].rotateY(2*RIGHT_ANGLE);
+
+	HR( m_pEntity[6].init(".//Resources//statue//statue.GMA", false, true, false, true) );
+	m_pEntity[6].move(0, -4, 12);
+	m_pEntity[6].rotateX(-RIGHT_ANGLE);
+	m_pEntity[6].rotateY(2*RIGHT_ANGLE);
+
+	HR( m_pEntity[7].init(".//Resources//statue//statue.GMA", false, true, false, true) );
+	m_pEntity[7].move(0, -4, 24);
+	m_pEntity[7].rotateX(-RIGHT_ANGLE);
+	m_pEntity[7].rotateY(2*RIGHT_ANGLE);
+
+	HR( m_pEntity[8].init(".//Resources//statue//statue.GMA", false, true, false, true) );
+
+	m_pEntity[8].move(0, -4, 36);
+	m_pEntity[8].rotateX(-RIGHT_ANGLE);
+	m_pEntity[8].rotateY(2*RIGHT_ANGLE);
 	/************************************************************************/
 	/* depth of field                                                       */
 	/************************************************************************/
@@ -110,8 +106,21 @@ void StageUtility::postInitiate( void )
 	/* shadow                                                               */
 	/************************************************************************/
 
-	m_lightArr = new Light[0];
-	for ( int i=0; i<0; i++ )
+	/************************************************************************/
+	/* Deferred rendering                                                   */
+	/************************************************************************/
+
+	HR( m_pEntity[9].init(".//Resources//moon//moon.GMA", false, false, false, true, NULL, "moon_normal.dds") );
+
+	m_pEntity[9].scale(7.2);
+	m_pEntity[9].rotateX(-RIGHT_ANGLE);
+
+	/************************************************************************/
+	/* Deferred rendering                                                   */
+	/************************************************************************/
+
+	m_lightArr = new Light[128];
+	for ( int i=0; i<128; i++ )
 	{
 		float rx = float(rand()%1024)/1023.0f * PI;
 		float ry = float(rand()%1024)/1023.0f * PI * 2;
@@ -129,7 +138,7 @@ void StageUtility::postInitiate( void )
 	//	float x = float(rand()%20) - 10;
 	//	float z = float(rand()%20) - 10;
 
-		CVector vPos(0, 0, 6, 2.0f);
+		CVector vPos(0, 0, 8.0f, 2.0f);
 		vPos =  vPos * local_mat;
 		m_lightArr[i].position = vPos;
 
@@ -143,8 +152,6 @@ void StageUtility::postInitiate( void )
 		m_lightArr[i].diffuse[1] = g/256;
 		m_lightArr[i].diffuse[2] = b/256;
 		m_lightArr[i].diffuse[3] = 1.f;
-
-		m_lightManager.pushLights(&(m_lightArr[i]));
 	}
 
 	Light light;
@@ -157,7 +164,6 @@ void StageUtility::postInitiate( void )
 	m_lightManager.setDirLight(light);
 }
 
-float x = 1;			// holy fucking shit
 void StageUtility::update( double tt, double dt )
 {
 
@@ -184,10 +190,54 @@ void StageUtility::update( double tt, double dt )
 
 	}*/
 
-	for (int i=0; i<m_entityNum; i++)
+	m_lightManager.clearLights();
+	switch (m_stageType)
 	{
-		SubmitRenderEntity(&m_pEntity[i]);
+	case STAGE_MAIN:
+		{
+			m_lightManager.setDirLightDirection(1, -1, -0.3);
+			SetCamPos(0,20,-50);
+			for (int i=0; i<4; i++)
+			{
+				SubmitRenderEntity(&m_pEntity[i]);
+			}
+		}break;
+	case STAGE_DEPTH_OF_FIELD:
+		{
+			m_lightManager.setDirLightDirection(0.3, -1, 1);
+			SetCamPos(10,0,-50);
+			for (int i=4; i<9; i++)
+			{
+				SubmitRenderEntity(&m_pEntity[i]);
+			}
+		}break;
+	case STAGE_DEFERED_RENDERING:
+		{
+			m_lightManager.setDirLightDirection(1, -1, -0.3);
+			SetCamPos(0,20,-50);
+			for ( int i=0; i<128; i++ )
+			{
+				float spin = (float(rand()%1024)/1023.0f+0.0001) * 0.1;
+				CMatrix local_mat; 
+
+				CMatrix rot_mat;
+				rot_mat.RotateY_Replace_LH(spin);
+
+				CVector vPos = m_lightArr[i].position;
+
+				CVector tmp =  vPos * rot_mat;// * local_mat;
+
+				m_lightArr[i].position = CVector(tmp.GetX(), tmp.GetY(), tmp.GetZ(), tmp.GetW());
+
+				m_lightManager.pushLights(&(m_lightArr[i]));
+			}
+
+			SubmitRenderEntity(&m_pEntity[9]);
+		}break;
+	default:
+		ALERT("Stage illegel");
 	}
+
 
 	if (IsKeyPressed(DIK_I))
 	{
@@ -223,18 +273,6 @@ void StageUtility::update( double tt, double dt )
 		}
  	}
 
-	if (IsKeyPressed(DIK_Z))
-	{
-		x+=0.1;
-		m_pEntity[0].scale(x);
-	}
-
-	if ( IsKeyPressed(DIK_X))
-	{
-		x-=0.1;
-		m_pEntity[0].scale(x);
-	}
-
 	CVector b = CVector(1,0,0);
 	if (GetKeyState(KLEFT))
 	{
@@ -259,13 +297,49 @@ void StageUtility::update( double tt, double dt )
 
 	if (IsKeyPressed(DIK_1))
 	{
-		turnShinessBloom(false);
+		m_stageType = STAGE_MAIN;
 	}
 
 	if (IsKeyPressed(DIK_2))
 	{
-		turnShinessBloom(true);
+		m_stageType = STAGE_DEPTH_OF_FIELD;
 	}
+
+	if (IsKeyPressed(DIK_3))
+	{
+		m_stageType = STAGE_DEFERED_RENDERING;
+	}
+
+	if (IsKeyPressed(DIK_4))
+	{
+		TurnFullScreenBloom(true);
+	}
+
+	if (IsKeyPressed(DIK_5))
+	{
+		TurnFullScreenBloom(false);
+	}
+
+	if (IsKeyPressed(DIK_6))
+	{
+		TurnShinessBloom(true);
+	}
+
+	if (IsKeyPressed(DIK_7))
+	{
+		TurnShinessBloom(false);
+	}
+
+	if (IsKeyPressed(DIK_8))
+	{
+		TurnDepthOfField(true);
+	}
+
+	if (IsKeyPressed(DIK_9))
+	{
+		TurnDepthOfField(false);
+	}
+
 
 	b = CVector(0,0,1);
 	if (GetKeyState(KUP))

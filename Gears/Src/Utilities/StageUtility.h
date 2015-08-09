@@ -9,6 +9,12 @@
 #include "InputUtility.h"
 #include "LightsManager.h"
 
+enum {
+	STAGE_MAIN = 0,
+	STAGE_DEPTH_OF_FIELD,
+	STAGE_DEFERED_RENDERING
+};
+
 class StageUtility : protected IUtility
 {
 public:
@@ -25,6 +31,7 @@ private:
 	Light			*m_lightArr;
 
 	int				m_entityNum;
+	int				m_stageType;
 
 #ifdef OPENGL_CORE
 	RenderEntity_opengl *m_pEntity;
