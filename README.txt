@@ -1,3 +1,5 @@
+When I started to create this engine, I was not that expierenced. Someparts of this engine are not well-constructed.
+I prepare to redo all my work if I have enough time
 Gears Render Engine
 Free to use for any purpose, open source, and great for learning shader.
 By Kemi Peng <pengsoftware@gmail.com>
